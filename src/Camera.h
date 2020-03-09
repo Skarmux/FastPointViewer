@@ -4,9 +4,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <cstring>
 #include <vector>
 
 #include "Plane.h"
+
+using namespace std;
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
@@ -157,7 +160,7 @@ public:
 		updateCameraVectors();
 	}
 
-	void setFrustumVertices(float * vertices) {
+	void setFrustumVertices(float* vertices) {
 		
 		float frustum[] = {
 			ftl.x, ftl.y, ftl.z, 1.0f, 0.0f, 0.0f,
