@@ -1,0 +1,18 @@
+#pragma once
+#define FastPointViewer_VERSION_MAJOR @FastPointViewer_VERSION_MAJOR@
+#define FastPointViewer_VERSION_MINOR @FastPointViewer_VERSION_MINOR@
+#define ROOT_DIR "@CMAKE_SOURCE_DIR@/"
+#define KILOBYTE 1000
+#define MEGABYTE 1000*KILOBYTE
+#define GIGABYTE 1000*MEGABYTE
+#define SCR_WIDTH 1280
+#define SCR_HEIGHT 720
+
+#include <math.h>
+
+const bool use_lod = true;
+const float lod_factor = 1.9f;
+const float first_lod_dist = pow(lod_factor, 4) / 100;
+const float second_lod_dist = pow(lod_factor, 5) / 100;
+
+const int szLoadBuffer = 50 * MEGABYTE; //size of front and back buffer
