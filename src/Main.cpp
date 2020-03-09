@@ -34,10 +34,10 @@ const float * datamap_ptr;
 const float * treemap_ptr;
 
 // CONFIGURATION
-char tree_filepath[] = "C:/Users/Skarmux/Desktop/FastPointViewer/res/models/lucy_SPHERE_B20.bin";
-char data_filepath[] = "C:/Users/Skarmux/Desktop/FastPointViewer/res/models/lucy_DATA.bin";
-char vertex_shader[] = "C:/Users/Skarmux/Desktop/FastPointViewer/res/shaders/4.3.shader.vs";
-char fragment_shader[] = "C:/Users/Skarmux/Desktop/FastPointViewer/res/shaders/4.3.shader.fs";
+char tree_filepath[] = "/home/skarmux/Documents/Projects/FastPointViewer/res/models/lucy_SPHERE_B20.bin";
+char data_filepath[] = "/home/skarmux/Documents/Projects/FastPointViewer/res/models/lucy_DATA.bin";
+char vertex_shader[] = "/home/skarmux/Documents/Projects/FastPointViewer/res/shaders/4.3.shader.vs";
+char fragment_shader[] = "/home/skarmux/Documents/Projects/FastPointViewer/res/shaders/4.3.shader.fs";
 const bool use_lod = true;
 const float lod_factor = 1.9f;
 const float first_lod_dist = pow(lod_factor, 4) / 100;
