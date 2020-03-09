@@ -2,7 +2,6 @@
 #include "FPVConfig.h"
 #include "Camera.h"
 #include "Shader.h"
-//#include "Loader.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -12,6 +11,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <string>
+#include <cstring>
 #include <algorithm>
 #include <iostream>
 #include <fstream>
@@ -23,6 +23,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 
 #define BOOST_DATE_TIME_NO_LIB
 #include <boost/interprocess/file_mapping.hpp>
@@ -34,10 +35,15 @@ const float * datamap_ptr;
 const float * treemap_ptr;
 
 // CONFIGURATION
-char tree_filepath[] = "/home/skarmux/Documents/Projects/FastPointViewer/res/models/lucy_SPHERE_B20.bin";
-char data_filepath[] = "/home/skarmux/Documents/Projects/FastPointViewer/res/models/lucy_DATA.bin";
-char vertex_shader[] = "/home/skarmux/Documents/Projects/FastPointViewer/res/shaders/4.3.shader.vs";
-char fragment_shader[] = "/home/skarmux/Documents/Projects/FastPointViewer/res/shaders/4.3.shader.fs";
+string tree_file			= ROOT_DIR + string("res/models/lucy_SPHERE_B20.bin");
+string data_file			= ROOT_DIR + string("res/models/lucy_DATA.bin");
+string vertex_shader_file	= ROOT_DIR + string("res/shaders/4.3.shader.vs");
+string fragment_shader_file = ROOT_DIR + string("res/shaders/4.3.shader.fs");
+const char* tree_filepath   = &tree_file[0];
+const char* data_filepath   = &data_file[0];
+const char* vertex_shader   = &vertex_shader_file[0];
+const char* fragment_shader = &fragment_shader_file[0];
+
 const bool use_lod = true;
 const float lod_factor = 1.9f;
 const float first_lod_dist = pow(lod_factor, 4) / 100;
@@ -94,10 +100,6 @@ glm::mat4 rotate_matrix_b = glm::rotate(rotate_matrix_a, glm::radians(180.0f), g
 glm::mat4 transformation_matrix = glm::translate(
 	rotate_matrix_b,
 	glm::vec3(-690.7556152344, 121.5314025879, -192.6265869141));
-
-//Loader loader(treemap_ptr, datamap_ptr, ptr_fnt, ptr_bck, &fnt_buffer_mtx, &bck_buffer_mtx, &camera, &nbLoadPoints);
-//thread loaderThread(loader);
-//thread loaderThread;
 
 // ------------------------------------------------------------------------------------------------------------------------
 
@@ -364,9 +366,11 @@ int main() {
 	boost::interprocess::mapped_region data_region(data_filemap, boost::interprocess::read_only);
 	treemap_ptr = static_cast<const float*>(tree_region.get_address());
 	datamap_ptr = static_cast<const float*>(data_region.get_address());
+
 	memcpy(&max_depth, treemap_ptr, sizeof(int));
 	memcpy(&num_elements, treemap_ptr + 1, sizeof(int));
 	memcpy(&bvtype, treemap_ptr + 2, sizeof(int));
+
 	// generate array/vertex/element buffer objects
 	glGenVertexArrays(5, VAOs);
 	glGenBuffers(5, VBOs);
@@ -501,7 +505,6 @@ int main() {
 				glDrawArrays(GL_POINTS, 0, nbLoadPoints);
 				bck_buffer_mtx.unlock();
 			}
-			cout << nbOviewPoints << endl;
 		}
 
 		// draw Frustum Frame
