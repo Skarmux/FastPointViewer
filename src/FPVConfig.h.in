@@ -7,12 +7,3 @@
 #define GIGABYTE 1000*MEGABYTE
 #define SCR_WIDTH 1280
 #define SCR_HEIGHT 720
-
-#include <math.h>
-
-const bool use_lod = true;
-const float lod_factor = 1.9f;
-const float first_lod_dist = pow(lod_factor, 4) / 100;
-const float second_lod_dist = pow(lod_factor, 5) / 100;
-
-const int szLoadBuffer = 50 * MEGABYTE; //size of front and back buffer
